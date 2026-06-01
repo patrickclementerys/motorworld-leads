@@ -1,473 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Auto Lead Management Response System — MOTORWORLD</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrick Reyes — Automation Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #ffffff;
-    --bg2: #f7f6f3;
-    --bg3: #f0efeb;
-    --text: #1a1a18;
-    --text2: #6b6a63;
-    --text3: #9c9a92;
-    --border: rgba(0,0,0,0.10);
-    --border2: rgba(0,0,0,0.18);
-    --info-bg: #e6f1fb;
-    --info-text: #185fa5;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --white: #ffffff;
+    --off-white: #f8f7f4;
+    --light-gray: #f0ede8;
+    --mid-gray: #c8c4bc;
+    --text-muted: #8a8680;
+    --text-body: #3a3834;
+    --text-dark: #1a1916;
+    --accent: #d85a30;
+    --accent-light: #faece7;
+    --accent-dark: #993c1d;
+    --teal: #1d9e75;
+    --teal-light: #e1f5ee;
+    --blue: #378add;
+    --blue-light: #e6f1fb;
+    --border: rgba(0,0,0,0.08);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1e1e1c;
-      --bg2: #252523;
-      --bg3: #2c2c2a;
-      --text: #e8e6de;
-      --text2: #9c9a92;
-      --text3: #6b6a63;
-      --border: rgba(255,255,255,0.10);
-      --border2: rgba(255,255,255,0.18);
-      --info-bg: #0c447c;
-      --info-text: #b5d4f4;
-    }
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-body);
+    font-size: 16px;
+    line-height: 1.7;
   }
 
-  .page {
-    max-width: 820px;
-    margin: 0 auto;
-    background: var(--bg);
-    border: 0.5px solid var(--border2);
-    border-radius: 16px;
-    overflow: hidden;
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(248,247,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--text-dark);
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-dark); }
 
   /* HERO */
   .hero {
-    background: var(--bg2);
-    border-bottom: 0.5px solid var(--border);
-    padding: 2.5rem 2.5rem 2rem;
+    padding: 140px 2rem 100px;
+    max-width: 900px;
+    margin: 0 auto;
   }
-
-  .hero-tag {
-    display: inline-block;
+  .hero-eyebrow {
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--info-text);
-    background: var(--info-bg);
-    padding: 4px 10px;
-    border-radius: var(--radius-md);
-    margin-bottom: 1rem;
-  }
-
-  .hero-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 32px;
-    font-weight: 400;
-    color: var(--text);
-    line-height: 1.2;
-    margin-bottom: 0.4rem;
-  }
-
-  .hero-sub {
-    font-size: 14px;
-    color: var(--text2);
-    margin-bottom: 1.75rem;
-  }
-
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
     gap: 8px;
   }
-
-  .kpi {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 0.875rem 0.6rem;
-    text-align: center;
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.08;
+    color: var(--text-dark);
+    letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-body);
   }
 
-  .kpi-icon { font-size: 20px; margin-bottom: 4px; display: block; }
-  .kpi-label { font-size: 11px; color: var(--text2); line-height: 1.3; }
-
-  /* SECTIONS */
-  .section {
-    padding: 2rem 2.5rem;
-    border-bottom: 0.5px solid var(--border);
+  /* SECTION */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 2rem;
   }
-
-  .section-title {
+  .section-label {
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text2);
-    margin-bottom: 1.25rem;
-  }
-
-  /* FLOW STEPS */
-  .flow-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .flow-step {
-    background: var(--bg);
-    padding: 1.25rem 1rem;
-  }
-
-  .step-num {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--info-text);
-    background: var(--info-bg);
-    display: inline-flex;
-    width: 22px; height: 22px;
-    border-radius: 50%;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROJECT CARD */
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .project-header {
+    padding: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
     margin-bottom: 0.5rem;
   }
-
-  .step-tool {
+  .project-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 480px;
+  }
+  .project-badge {
+    background: var(--accent-light);
+    color: var(--accent-dark);
     font-size: 11px;
-    color: var(--text2);
-    margin-bottom: 0.25rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    padding: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .flow-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .flow-steps {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0;
+    min-width: max-content;
   }
-
-  .step-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-  }
-
-  .step-desc {
-    font-size: 12px;
-    color: var(--text2);
-    line-height: 1.5;
-  }
-
-  /* SCREENSHOTS */
-  .screenshots-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .screenshot-card {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .screenshot-placeholder {
-    width: 100%;
-    aspect-ratio: 4/3;
-    background: var(--bg2);
-    border-bottom: 0.5px solid var(--border);
+  .flow-step {
     display: flex;
     flex-direction: column;
-    obje
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    color: var(--text3);
-    font-size: 12px;
   }
-
-  .screenshot-placeholder-icon { font-size: 28px; }
-
-  .screenshot-card img {
-    width: 100%;
-    display: block;
-    background: var(--bg2);
-    border-bottom: 0.5px solid var(--border);
-    object-position: center;
-    object-fit: contain;
-    height: 200px;
-  }
-
-  .screenshot-label {
-    padding: 0.6rem 0.875rem;
+  .flow-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text2);
+    justify-content: center;
+    font-size: 22px;
+  }
+  .flow-step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 70px;
+    line-height: 1.3;
+  }
+  .flow-arrow {
+    width: 32px;
+    height: 2px;
+    background: var(--mid-gray);
+    position: relative;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .flow-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left-color: var(--mid-gray);
+    border-right: 0;
   }
 
-  /* OVERVIEW PARAGRAPHS */
-  .overview-body {
-    font-size: 14px;
-    color: var(--text2);
-    line-height: 1.75;
-  }
+  .fi-green { background: var(--teal-light); }
+  .fi-orange { background: var(--accent-light); }
+  .fi-blue { background: var(--blue-light); }
+  .fi-purple { background: #eeedfe; }
 
-  .overview-body p { margin-bottom: 1rem; }
-  .overview-body p:last-child { margin-bottom: 0; }
-
-  /* BENEFITS */
-  .benefits-grid {
+  /* TOOLS GRID */
+  .tools-grid {
+    padding: 2.5rem;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
   }
-
-  .benefit-card {
-    background: var(--bg2);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem 0.875rem;
-  }
-
-  .benefit-icon { font-size: 22px; margin-bottom: 0.5rem; display: block; }
-  .benefit-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
-  .benefit-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
-
-  /* TOOLS */
-  .tools-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-  }
-
-  .tool-card {
-    background: var(--bg2);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 0.875rem;
+  .tool-item {
+    background: var(--off-white);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
     display: flex;
     align-items: center;
     gap: 10px;
   }
-
-  .tool-icon {
-    font-size: 20px;
-    width: 34px; height: 34px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: var(--radius-md);
-    background: var(--bg);
-    border: 0.5px solid var(--border);
+  .tool-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     flex-shrink: 0;
   }
+  .dot-green { background: var(--teal); }
+  .dot-orange { background: var(--accent); }
+  .dot-blue { background: var(--blue); }
+  .dot-purple { background: #7f77dd; }
+  .tool-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-body);
+  }
+  .tool-role {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
 
-  .tool-name { font-size: 12px; font-weight: 500; color: var(--text); }
-  .tool-purpose { font-size: 11px; color: var(--text2); }
+  /* RESULTS */
+  .results {
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .result-item {
+    text-align: center;
+  }
+  .result-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--text-dark);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .result-number span {
+    color: var(--accent);
+  }
+  .result-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .skill-icon {
+    font-size: 24px;
+    margin-bottom: 0.75rem;
+  }
+  .skill-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .skill-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .about-text h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .about-text p {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1.5rem;
+  }
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-body);
+  }
+  .contact-list .c-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 50px;
+  }
+  .stat-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .stat-row {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .stat-row-label {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .stat-row-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+  }
+  .stat-row-value span { color: var(--accent); }
 
   /* FOOTER */
-  .footer {
-    padding: 1.25rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
     font-size: 12px;
-    color: var(--text2);
+    color: var(--text-muted);
   }
 
-  .form-link {
-    font-size: 12px;
-    color: var(--info-text);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .form-link:hover { text-decoration: underline; }
-
-  @media (max-width: 600px) {
-    .kpi-row { grid-template-columns: repeat(3, 1fr); }
-    .flow-steps { grid-template-columns: 1fr 1fr; }
-    .screenshots-grid { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-    .tools-row { grid-template-columns: repeat(2, 1fr); }
-    .hero { padding: 1.5rem; }
-    .section { padding: 1.5rem; }
-    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .results { grid-template-columns: 1fr; }
+    .project-header { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-tag">Zapier Automation · MOTORWORLD</div>
-    <div class="hero-title">Auto Lead Management<br>Response System</div>
-    <div class="hero-sub">Fully automated inquiry handling — zero manual effort, instant response.</div>
-    <div class="kpi-row">
-      <div class="kpi"><span class="kpi-icon">⚡</span><div class="kpi-label">Seconds to respond</div></div>
-      <div class="kpi"><span class="kpi-icon">🔁</span><div class="kpi-label">Fully automated</div></div>
-      <div class="kpi"><span class="kpi-icon">💰</span><div class="kpi-label">Free platforms only</div></div>
-      <div class="kpi"><span class="kpi-icon">📊</span><div class="kpi-label">Centralized pricing</div></div>
-      <div class="kpi"><span class="kpi-icon">🛠️</span><div class="kpi-label">4 tools connected</div></div>
-    </div>
+<nav>
+  <div class="nav-logo">Patrick<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#project">Project</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Automation Portfolio</div>
+  <h1>Building <em>smarter</em><br>workflows for<br>Honda Cars</h1>
+  <p class="hero-sub">Designed and built an end-to-end lead management automation system — from form submission to CRM tracking.</p>
+  <div class="hero-tags">
+    <span class="tag">No-code Automation</span>
+    <span class="tag">Make (Integromat)</span>
+    <span class="tag">CRM Setup</span>
+    <span class="tag">Lead Generation</span>
+    <span class="tag">Google Workspace</span>
   </div>
-
-  <!-- OVERVIEW -->
-  <div class="section">
-    <div class="section-title">Overview</div>
-    <div class="overview-body">
-      <p>The Auto Lead Management Response System is a fully automated lead handling solution built for MOTORWORLD. Designed to streamline the inquiry process, this system ensures that every potential customer receives an immediate, accurate, and professional response — without any manual intervention.</p>
-      <p>When a customer submits an inquiry through the MOTORWORLD inquiry form, the system instantly detects the new response, automatically looks up pricing from a centralized database, notifies the sales team via Slack, and sends a personalized email to the customer — all within seconds.</p>
-    </div>
-  </div>
-
-  <!-- HOW IT WORKS -->
-  <div class="section">
-    <div class="section-title">How it works — 4-step automation</div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="step-num">1</div>
-        <div class="step-tool">📋 Google Forms</div>
-        <div class="step-name">Lead Capture</div>
-        <div class="step-desc">Customer submits their name, email, preferred vehicle model, and payment terms (Cash or Financing) via the inquiry form.</div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">2</div>
-        <div class="step-tool">📊 Google Sheets</div>
-        <div class="step-name">Price Lookup</div>
-        <div class="step-desc">The system auto-fetches the SRP, cash discount, and financing terms (12–60 months) from the centralized price list database.</div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">3</div>
-        <div class="step-tool">💬 Slack</div>
-        <div class="step-name">Team Alert</div>
-        <div class="step-desc">The sales team receives an instant notification with the customer's name, email, inquired model, and SRP in the designated channel.</div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">4</div>
-        <div class="step-tool">📧 Gmail</div>
-        <div class="step-name">Auto Reply</div>
-        <div class="step-desc">The customer receives a personalized email with full vehicle details, SRP, cash discount, and available financing terms up to 60 months.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCREENSHOTS -->
-  <div class="section">
-    <div class="section-title">Screenshots</div>
-    <div class="screenshots-grid">
-      <div class="screenshot-card">
-        <div class="screenshot-placeholder">
-          <img src="Zap.jpg" alt="Workflow"/>
-        </div>
-        <div class="screenshot-label">⚡ Zapier automation flow — 4-step pipeline</div>
-      </div>
-      <div class="screenshot-card">
-        <div class="screenshot-placeholder">
-          <img src="Form.jpg" alt="Forms"/>
-        </div>
-        <div class="screenshot-label">📋 Google Forms — customer inquiry form</div>
-      </div>
-      <div class="screenshot-card">
-        <div class="screenshot-placeholder">
-         <img src="Slack.jpg" alt="Slack"/>
-        </div>
-        <div class="screenshot-label">💬 Slack — real-time lead alerts to sales team</div>
-      </div>
-      <div class="screenshot-card">
-        <div class="screenshot-placeholder">
-          <img src="Email.jpg" alt="Email"/>
-        </div>
-        <div class="screenshot-label">📧 Gmail — automated customer email response</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KEY BENEFITS -->
-  <div class="section">
-    <div class="section-title">Key benefits</div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <span class="benefit-icon">⚡</span>
-        <div class="benefit-title">Instant response</div>
-        <div class="benefit-desc">Customers get a reply within seconds of submitting the form.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">✅</span>
-        <div class="benefit-title">Accurate pricing</div>
-        <div class="benefit-desc">Data pulled directly from a centralized database — no manual errors.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">✏️</span>
-        <div class="benefit-title">Easy to maintain</div>
-        <div class="benefit-desc">Update prices in one sheet — no automation changes needed.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">💰</span>
-        <div class="benefit-title">Cost efficient</div>
-        <div class="benefit-desc">Built entirely on free-tier platforms.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">🤖</span>
-        <div class="benefit-title">Fully automated</div>
-        <div class="benefit-desc">Zero manual effort per inquiry from the sales team.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOOLS USED -->
-  <div class="section">
-    <div class="section-title">Tools used</div>
-    <div class="tools-row">
-      <div class="tool-card">
-        <div class="tool-icon">📋</div>
-        <div><div class="tool-name">Google Forms</div><div class="tool-purpose">Lead capture</div></div>
-      </div>
-      <div class="tool-card">
-        <div class="tool-icon">📊</div>
-        <div><div class="tool-name">Google Sheets</div><div class="tool-purpose">Price database</div></div>
-      </div>
-      <div class="tool-card">
-        <div class="tool-icon">💬</div>
-        <div><div class="tool-name">Slack</div><div class="tool-purpose">Team alerts</div></div>
-      </div>
-      <div class="tool-card">
-        <div class="tool-icon">📧</div>
-        <div><div class="tool-name">Gmail</div><div class="tool-purpose">Customer reply</div></div>
-      </div>
-      <div class="tool-card">
-        <div class="tool-icon">⚡</div>
-        <div><div class="tool-name">Zapier</div><div class="tool-purpose">Automation engine</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <span>MOTORWORLD · Auto Lead Management Response System · Powered by Zapier</span>
-    <a class="form-link" href="https://forms.gle/nkGa3WYTVtgswPyK9" target="_blank">↗ Open inquiry form</a>
-  </div>
-
 </div>
+
+<!-- PROJECT -->
+<section id="project">
+  <div class="section-label">Featured project</div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div class="project-title">Auto Lead Management System</div>
+        <p class="project-desc">A fully automated pipeline that captures, notifies, and tracks leads for Honda Cars — zero manual data entry required.</p>
+      </div>
+      <div class="project-badge">Honda Cars PH</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">Automation flow</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon fi-green">📋</div>
+          <div class="flow-step-label">Google Form</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-green">📊</div>
+          <div class="flow-step-label">Google Sheets</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-purple">💬</div>
+          <div class="flow-step-label">Slack Alert</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-blue">📧</div>
+          <div class="flow-step-label">Gmail (me)</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-orange">✉️</div>
+          <div class="flow-step-label">Email + Calendly</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-green">🗂️</div>
+          <div class="flow-step-label">Airtable CRM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-dot dot-green"></div>
+        <div>
+          <div class="tool-name">Google Forms</div>
+          <div class="tool-role">Lead capture</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-green"></div>
+        <div>
+          <div class="tool-name">Google Sheets</div>
+          <div class="tool-role">Data storage + lookup</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-purple"></div>
+        <div>
+          <div class="tool-name">Make</div>
+          <div class="tool-role">Automation engine</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-purple"></div>
+        <div>
+          <div class="tool-name">Slack</div>
+          <div class="tool-role">Instant notifications</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-blue"></div>
+        <div>
+          <div class="tool-name">Gmail</div>
+          <div class="tool-role">Email notifications</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-orange"></div>
+        <div>
+          <div class="tool-name">Calendly</div>
+          <div class="tool-role">Test drive scheduling</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-green"></div>
+        <div>
+          <div class="tool-name">Airtable</div>
+          <div class="tool-role">CRM + Kanban pipeline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="result-item">
+        <div class="result-number">0<span>s</span></div>
+        <div class="result-label">Manual data entry required</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">&lt;15<span>m</span></div>
+        <div class="result-label">Lead response time</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">6<span>+</span></div>
+        <div class="result-label">Tools integrated</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTORWORLD PROJECT -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div class="project-title">Auto Lead Management Response System</div>
+        <p class="project-desc">A Zapier-powered automation for MOTORWORLD that instantly handles every customer inquiry — from form submission to personalized email reply — in seconds, with zero manual effort.</p>
+      </div>
+      <div class="project-badge" style="background:#e6f1fb;color:#185fa5;">MOTORWORLD</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">Automation flow</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon fi-green">📋</div>
+          <div class="flow-step-label">Google Form</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-green">📊</div>
+          <div class="flow-step-label">Price Lookup</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-purple">💬</div>
+          <div class="flow-step-label">Slack Alert</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">
+          <div class="flow-icon fi-blue">📧</div>
+          <div class="flow-step-label">Auto Email Reply</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-dot dot-green"></div>
+        <div>
+          <div class="tool-name">Google Forms</div>
+          <div class="tool-role">Lead capture</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-green"></div>
+        <div>
+          <div class="tool-name">Google Sheets</div>
+          <div class="tool-role">Centralized price database</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-orange"></div>
+        <div>
+          <div class="tool-name">Zapier</div>
+          <div class="tool-role">Automation engine</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-purple"></div>
+        <div>
+          <div class="tool-name">Slack</div>
+          <div class="tool-role">Team alerts</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot dot-blue"></div>
+        <div>
+          <div class="tool-name">Gmail</div>
+          <div class="tool-role">Personalized auto-reply</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="result-item">
+        <div class="result-number">4<span>steps</span></div>
+        <div class="result-label">Fully automated pipeline</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">0<span>₱</span></div>
+        <div class="result-label">Built on free platforms only</div>
+      </div>
+      <div class="result-item">
+        <div class="result-number">⚡<span>secs</span></div>
+        <div class="result-label">Customer response time</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & tools</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">Workflow Automation</div>
+      <div class="skill-desc">Building multi-step automations using Make (Integromat) with conditional logic and error handling.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗂️</div>
+      <div class="skill-name">CRM Setup</div>
+      <div class="skill-desc">Designing lead tracking systems in Airtable with Kanban pipelines and status management.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📧</div>
+      <div class="skill-name">Email Automation</div>
+      <div class="skill-desc">Creating personalized automated email sequences with dynamic data and scheduling links.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Google Workspace</div>
+      <div class="skill-desc">Connecting Google Forms, Sheets, and Gmail into seamless automated data pipelines.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📅</div>
+      <div class="skill-name">Scheduling Systems</div>
+      <div class="skill-desc">Integrating Calendly for automated test drive booking and appointment management.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💬</div>
+      <div class="skill-name">Team Notifications</div>
+      <div class="skill-desc">Setting up real-time Slack alerts with formatted lead data for instant team response.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Patrick Reyes</h2>
+      <p>Sales professional at Honda Cars with a passion for building smart, automated systems that eliminate repetitive work and improve lead response times.</p>
+      <p>Built this automation system from scratch — connecting 6+ tools into one seamless pipeline that runs 24/7 without manual intervention.</p>
+      <ul class="contact-list">
+        <li>
+          <span class="c-label">Email</span>
+          patrickclemente21@gmail.com
+        </li>
+        <li>
+          <span class="c-label">Phone</span>
+          0916-414-1680
+        </li>
+        <li>
+          <span class="c-label">Company</span>
+          Honda Cars Philippines
+        </li>
+      </ul>
+    </div>
+    <div class="stat-stack">
+      <div class="stat-row">
+        <span class="stat-row-label">Leads automated</span>
+        <span class="stat-row-value">44<span>+</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Tools connected</span>
+        <span class="stat-row-value">6<span>+</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Automation runs</span>
+        <span class="stat-row-value">Every <span>15m</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Manual work saved</span>
+        <span class="stat-row-value">100<span>%</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Patrick Reyes · Honda Cars Philippines · Built with Make, Google Workspace & Airtable
+</footer>
+
 </body>
 </html>
